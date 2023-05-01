@@ -70,14 +70,14 @@ class FileStorage:
         self.reload()
 
     def get(self, cls, id):
-        '''object to get'''
-        if cls and id:
-            takeObj = '{}.{}'.format(cls, id)
-            everyObj = self.all(cls)
-            return everyObj.get(takeObj)
-        else:
-            return None
+        """ retrieve one object"""
+        self.reload()
+        key = cls + '.' + id
+        obj = self.__objects.get(key)
+        return obj
 
     def count(self, cls=None):
-        '''class that is (optional)'''
-        return (len(self.all(cls)))
+        """count the number of objects in storage"""
+        self.reload()
+        obj_dict = self.all(cls)
+        return len(obj_dict)
